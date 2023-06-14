@@ -18,7 +18,7 @@ my_posts = []
 class Post(BaseModel):
     title: str
     content: str
-    pusblish: bool = True
+    publish: bool = True
     # add an optional property
     rating: Optional[int] = None
 
@@ -40,7 +40,6 @@ def get_post(id: str, response: Response):
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                         detail="Post not found for the id: 664a829")
 
-
 # post request: usually sent by the end user to the server to store data
 # return in the function is to indicate whether the request was successful
 @app.post("/posts", status_code=status.HTTP_201_CREATED)
@@ -59,6 +58,7 @@ def delete_post(id: str):
         if post["id"] == id:
             my_posts.remove(post)
             return Response(status_code=status.HTTP_204_NO_CONTENT)
+        
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                         detail= f"Post with id: {id} not found")
 
